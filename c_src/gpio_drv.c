@@ -71,9 +71,6 @@ typedef int  ErlDrvSSizeT;
 
 #include "gpio_drv.h"
 
-// define possible chipsets here
-extern gpio_methods_t gpio_bcm2835_meth;
-
 typedef struct gpio_pin_t
 {
     uint8_t  pin_reg;
@@ -1182,11 +1179,6 @@ static ErlDrvData gpio_drv_start(ErlDrvPort port, char* command)
 	    gpio_debug_level = DLOG_DEBUG;
 	    DEBUGF("gpio_drv: debug turned on.");
 	    break;
-	case 'b': {
-	    chipset = bcm2835;
-	    meth = &gpio_bcm2835_meth;
-	    break;
-	}
 	default:
 	    break;
 	}

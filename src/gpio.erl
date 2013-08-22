@@ -23,8 +23,6 @@
 %% Basic api
 -export([init/1,
 	 init/2,
-	 init_direct/1,
-	 init_direct/2,
 	 release/1,
 	 release/2,
 	 set/1, 
@@ -127,30 +125,6 @@ init(Pin) ->
 init(PinReg, Pin) 
   when is_integer(PinReg), PinReg >= 0, is_integer(Pin), Pin >= 0 ->
     call(?GPIO_PORT, ?CMD_INIT, <<PinReg:8, Pin:8, ?DIRECT_ACCESS_OFF:8>>).
-
-
-%%--------------------------------------------------------------------
-%% @doc
-%% Inits pin in pin register 0, i.e. prepares it for use.
-%% Actions on this pin will access physical address directly.
-%% @end
-%%--------------------------------------------------------------------
--spec gpio:init_direct(Pin::unsigned()) -> ok | {error,Reason::posix()}.
-init_direct(Pin) ->
-    init_direct(0, Pin).
-
-
-%%--------------------------------------------------------------------
-%% @doc
-%% Inits pin in pin register, i.e. prepares it for use.
-%% Actions on this pin will access physical address directly.
-%% @end
-%%--------------------------------------------------------------------
--spec gpio:init_direct(PinReg::unsigned(), Pin::unsigned()) -> 
-			      ok | {error,Reason::posix()}.
-init_direct(PinReg, Pin) 
-  when is_integer(PinReg), PinReg >= 0, is_integer(Pin), Pin >= 0 ->
-    call(?GPIO_PORT, ?CMD_INIT, <<PinReg:8, Pin:8, ?DIRECT_ACCESS_ON:8>>).
 
 
 %%--------------------------------------------------------------------
